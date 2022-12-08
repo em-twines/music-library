@@ -1,7 +1,7 @@
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from .models import Song
-from .serializers import SongSerializer, SongPatchSerializer
+from .serializers import SongSerializer
 from rest_framework import status
 from django.shortcuts import get_object_or_404
 
@@ -38,7 +38,8 @@ def song_details(request, pk):
         return Response(status.HTTP_204_NO_CONTENT)
 
     elif request.method == "PATCH":
-        serializer = SongPatchSerializer(song, data = request.data)
+        song.likes = song.likes +1; 
+        serializer = SongSerializer(song, data = request.data, partial = True)
         serializer.is_valid(raise_exception=True)
         serializer.save()
         return Response(serializer.data, status.HTTP_200_OK)
