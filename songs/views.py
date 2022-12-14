@@ -37,13 +37,20 @@ def song_details(request, pk):
         song.delete()
         return Response(status.HTTP_204_NO_CONTENT)
 
+    # elif request.method == "PATCH":
+    #     song.likes = song.likes +1; 
+    #     serializer = SongSerializer(song, data = request.data, partial = True)
+    #     serializer.is_valid(raise_exception=True)
+    #     serializer.save()
+    #     return Response(serializer.data, status.HTTP_200_OK)
+
+
     elif request.method == "PATCH":
-        song.likes = song.likes +1; 
+        song.likes = song.likes + request.data.get("likes")
+        request.data['likes'] = song.likes 
         serializer = SongSerializer(song, data = request.data, partial = True)
         serializer.is_valid(raise_exception=True)
         serializer.save()
         return Response(serializer.data, status.HTTP_200_OK)
-
-
 
 # Create your views here.

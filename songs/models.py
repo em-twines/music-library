@@ -10,4 +10,5 @@ class Song(models.Model):
     release_date = models.DateField(default=datetime.date.today)
     genre = models.CharField(max_length=255)
     likes = models.IntegerField(default = 0)
-    link = models.CharField(max_length=1000, default = '')
+    link = models.CharField(max_length=3000, default = '')
+    img = models.CharField(max_length=3000, default = '')
